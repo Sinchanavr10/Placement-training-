@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Scoreboard {
+    int runs;
+    int wickets;
+    float overs;
+};
+
+void displayScore(struct Scoreboard s) {
+    printf("\n==============================\n");
+    printf("       CRICKET SCOREBOARD     \n");
+    printf("==============================\n");
+    printf(" Runs    : %d\n", s.runs);
+    printf(" Wickets : %d / 10\n", s.wickets);
+    printf(" Overs   : %.1f\n", s.overs);
+    printf("==============================\n");
+}
+
+int main() {
+    struct Scoreboard score = {0, 0, 0.0};
+    int choice;
+
+    while (1) {
+        system("cls");      // Use "clear" instead of "cls" for Linux/Mac
+        displayScore(score);
+
+        printf("\n1. Add Runs");
+        printf("\n2. Add Wicket");
+        printf("\n3. Update Overs");
+        printf("\n4. Exit");
+        printf("\nEnter your choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            int r;
+            printf("Enter runs scored: ");
+            scanf("%d", &r);
+            score.runs += r;
+        }
+        else if (choice == 2) {
+            if (score.wickets < 10) {
+                score.wickets++;
+                printf("\nWicket fallen!");
+            } else {
+                printf("\nAll wickets are down!");
+            }
+        }
+        else if (choice == 3) {
+            float o;
+            printf("Enter overs (Example: 4.2 means 4 overs & 2 balls): ");
+            scanf("%f", &o);
+            score.overs = o;
+        }
+        else if (choice == 4) {
+            printf("\nFinal Score:\n");
+            displayScore(score);
+            printf("Match Ended.\n");
+            break;
+        }
+        else {
+            printf("Invalid choice! Try again.");
+        }
+
+        printf("\nPress Enter to continue...");
+        getchar();
+        getchar();
+    }
+
+    return 0;
+}
